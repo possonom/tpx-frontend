@@ -41,13 +41,13 @@ export class OIDCClient {
     return this.generateRandomString(32);
   }
 
-  generatePKCE(): {
+  async generatePKCE(): Promise<{
     codeVerifier: string;
     codeChallenge: string;
     method: string;
-  } {
+  }> {
     const codeVerifier = this.generateRandomString(43); // 43 chars for 256 bits
-    const codeChallenge = client.calculatePKCECodeChallenge(codeVerifier);
+    const codeChallenge = await client.calculatePKCECodeChallenge(codeVerifier);
     return {
       codeVerifier,
       codeChallenge,
@@ -121,13 +121,17 @@ export class OIDCClient {
 
   async getUserInfo(accessToken: string): Promise<client.UserInfoResponse> {
     const config = this.getConfig();
-    return await client.fetchUserInfo(config, accessToken);
+    return await client.fetchUserInfo(config, accessToken, '');
   }
 
   // Helper to get ID token claims
   getIdTokenClaims(
     tokens: client.TokenEndpointResponse
   ): client.IDToken | undefined {
-    return tokens.claims();
+    const claims = tokens.id_token_claims;
+    if (claims && typeof claims === "object" && !Array.isArray(claims)) {
+      return claims as client.IDToken;
+    }
+    return undefined;
   }
 }

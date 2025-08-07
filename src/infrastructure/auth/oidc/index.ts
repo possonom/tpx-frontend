@@ -1,5 +1,5 @@
 // src/infrastructure/auth/oidc/index.ts
-export { default as oidcClient, OIDCClient } from "./client";
+export { OIDCClient } from "./client";
 export { createOIDCProvider } from "./provider";
 export type { OIDCProfile } from "./provider";
 export { checkAuthorization } from "./middleware";

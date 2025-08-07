@@ -25,10 +25,16 @@ const authorizationRules: AuthorizationRule[] = [
   { path: "/dashboard/admin", roles: ["admin"] },
 ];
 
+interface AuthToken {
+  roles?: string[];
+  groups?: string[];
+  [key: string]: unknown;
+}
+
 export async function checkAuthorization(
   request: NextRequest
 ): Promise<{ authorized: boolean; reason?: string }> {
-  const token = await getToken({ req: request });
+  const token = await getToken({ req: request }) as AuthToken | null;
 
   if (!token) {
     return { authorized: false, reason: "No authentication token" };
@@ -47,33 +53,34 @@ export async function checkAuthorization(
     return true;
   });
 
-  if (!rule) {
-    return { authorized: true }; // No rule means public access
-  }
-
-  // Check roles
-  if (rule.roles) {
-    const userRoles = (token as any).roles || [];
-    const hasRole = rule.roles.some((role) => userRoles.includes(role));
-    if (!hasRole) {
-      return {
-        authorized: false,
-        reason: `Required roles: ${rule.roles.join(", ")}`,
-      };
+  if (rule) {
+    // Check roles
+    if (rule.roles) {
+      const userRoles = token.roles || [];
+      const hasRole = rule.roles.some((role) => userRoles.includes(role));
+      if (!hasRole) {
+        return {
+          authorized: false,
+          reason: `Required roles: ${rule.roles.join(", ")}`,
+        };
+      }
     }
-  }
 
-  // Check groups
-  if (rule.groups) {
-    const userGroups = (token as any).groups || [];
-    const hasGroup = rule.groups.some((group) => userGroups.includes(group));
-    if (!hasGroup) {
-      return {
-        authorized: false,
-        reason: `Required groups: ${rule.groups.join(", ")}`,
-      };
+    // Check groups
+    if (rule.groups) {
+      const userGroups = token?.groups || [];
+      const hasGroup: boolean = rule.groups.some((group: string) => userGroups.includes(group));
+      if (!hasGroup) {
+        return {
+          authorized: false,
+          reason: `Required groups: ${rule.groups.join(", ")}`,
+        };
+      }
     }
+
+    return { authorized: true };
   }
 
-  return { authorized: true };
+  // Fallback return in case no rule matches (deny by default)
+  return { authorized: false, reason: "No matching authorization rule" };
 }

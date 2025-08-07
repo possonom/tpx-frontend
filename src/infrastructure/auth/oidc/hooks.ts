@@ -10,6 +10,12 @@ export interface UseAuthOptions {
   groups?: string[];
 }
 
+interface AuthUser {
+  roles?: string[];
+  groups?: string[];
+  [key: string]: unknown;
+}
+
 export function useAuth(options: UseAuthOptions = {}) {
   const { data: session, status } = useSession();
   const router = useRouter();
@@ -21,7 +27,7 @@ export function useAuth(options: UseAuthOptions = {}) {
   }, [status, options.required, options.redirectTo, router]);
 
   const hasRole = (role: string): boolean => {
-    const roles = (session?.user as any)?.roles || [];
+    const roles = (session?.user as AuthUser)?.roles || [];
     return roles.includes(role);
   };
 
@@ -30,25 +36,22 @@ export function useAuth(options: UseAuthOptions = {}) {
   };
 
   const hasAllRoles = (roles: string[]): boolean => {
-    return roles.every(hasRole);
+    const userRoles = (session?.user as AuthUser)?.roles || [];
+    return roles.every(role => userRoles.includes(role));
   };
 
   const hasGroup = (group: string): boolean => {
-    const groups = (session?.user as any)?.groups || [];
+    const groups = (session?.user as AuthUser)?.groups || [];
     return groups.includes(group);
   };
 
   const checkAccess = (): boolean => {
-    if (!session) return false;
-
-    if (options.roles) {
-      if (!hasAnyRole(options.roles)) return false;
-    }
-
     if (options.groups) {
-      const groups = (session.user as any)?.groups || [];
+      const groups = (session?.user as AuthUser)?.groups || [];
       if (!options.groups.some((g) => groups.includes(g))) return false;
     }
+
+    // Add other access checks here if needed
 
     return true;
   };
