@@ -1,6 +1,7 @@
 // src/app/(auth)/layout.tsx
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -20,8 +21,10 @@ import {
   BuildingRetail24Regular,
   Heart24Regular,
   ArrowSwap24Regular,
+  DocumentBulletList24Regular,
 } from "@fluentui/react-icons";
 import Link from "next/link";
+import LanguageSwitcher from "../../../presentation/components/LanguageSwitcher";
 
 const useStyles = makeStyles({
   root: {
@@ -83,30 +86,40 @@ const useStyles = makeStyles({
   },
 });
 
-const navigationItems = [
-  { href: "/dashboard", label: "Dashboard", icon: <Home24Regular /> },
-  { href: "/practices", label: "Medical Practices", icon: <Heart24Regular /> },
-  {
-    href: "/pharmacies",
-    label: "Pharmacies",
-    icon: <BuildingRetail24Regular />,
-  },
-  {
-    href: "/transactions",
-    label: "Transactions",
-    icon: <ArrowSwap24Regular />,
-  },
-];
-
 export default function AuthLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const t = useTranslations("navigation");
   const { data: session, status } = useSession();
   const router = useRouter();
   const styles = useStyles();
   const [drawerOpen, setDrawerOpen] = useState(false);
+
+  const navigationItems = [
+    { href: "/dashboard", label: t("dashboard"), icon: <Home24Regular /> },
+    {
+      href: "/practices",
+      label: t("medicalPractices"),
+      icon: <Heart24Regular />,
+    },
+    {
+      href: "/pharmacies",
+      label: t("pharmacies"),
+      icon: <BuildingRetail24Regular />,
+    },
+    {
+      href: "/transactions",
+      label: t("transactions"),
+      icon: <ArrowSwap24Regular />,
+    },
+    {
+      href: "/announcements",
+      label: t("zmoAnnouncements"),
+      icon: <DocumentBulletList24Regular />,
+    },
+  ];
 
   useEffect(() => {
     if (status === "unauthenticated") {
@@ -137,8 +150,8 @@ export default function AuthLayout({
     <div className={styles.root}>
       <aside className={styles.sidebar}>
         <div className="p-6 border-b border-gray-200">
-          <h2 className="text-xl font-semibold">thp AG</h2>
-          <p className="text-sm text-gray-600">Brokerage Dashboard</p>
+          <h2 className="text-xl font-semibold">THP AG</h2>
+          <p className="text-sm text-gray-600">{t("brokerageDashboard")}</p>
         </div>
         <Navigation />
       </aside>
@@ -152,7 +165,8 @@ export default function AuthLayout({
             onClick={() => setDrawerOpen(true)}
           />
           <div className="flex-1" />
-          <div className="text-sm">
+          <LanguageSwitcher />
+          <div className="text-sm ml-4">
             {session.user?.name || session.user?.email}
           </div>
         </header>
@@ -175,7 +189,7 @@ export default function AuthLayout({
               />
             }
           >
-            thp AG Menu
+            {t("menu")}
           </DrawerHeaderTitle>
         </DrawerHeader>
         <DrawerBody>

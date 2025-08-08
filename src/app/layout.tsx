@@ -1,13 +1,6 @@
 // src/app/layout.tsx
-import type { Metadata } from "next";
-import { FluentProvider, webLightTheme } from "@fluentui/react-components";
+// This is the root layout that handles locale routing
 import "./globals.css";
-import { Providers } from "./providers";
-
-export const metadata: Metadata = {
-  title: "THP AG Dashboard",
-  description: "Medical Practice & Pharmacy Brokerage Management",
-};
 
 export default function RootLayout({
   children,
@@ -16,13 +9,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>
-        <Providers>
-          <FluentProvider theme={webLightTheme}>
-            <div className="min-h-screen bg-gray-50">{children}</div>
-          </FluentProvider>
-        </Providers>
-      </body>
+      <body>{children}</body>
     </html>
   );
 }

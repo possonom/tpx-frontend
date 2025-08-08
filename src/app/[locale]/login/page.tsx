@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import {
   Card,
   CardHeader,
@@ -82,6 +83,7 @@ const useStyles = makeStyles({
 });
 
 export default function LoginPage() {
+  const t = useTranslations("auth");
   const styles = useStyles();
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
@@ -101,7 +103,7 @@ export default function LoginPage() {
       });
 
       if (result?.error) {
-        setError("Authentication failed. Please try again.");
+        setError(t("loginError"));
       } else if (result?.url) {
         router.push(result.url);
       } else {
@@ -109,7 +111,7 @@ export default function LoginPage() {
         router.push("/dashboard");
       }
     } catch {
-      setError("An unexpected error occurred. Please try again.");
+      setError(t("unexpectedError"));
     } finally {
       setIsLoading(false);
     }
@@ -133,11 +135,8 @@ export default function LoginPage() {
         />
         <CardPreview className={styles.cardPreview}>
           <div>
-            <Title3 className={styles.title}>Welcome Back</Title3>
-            <Text className={styles.subtitle}>
-              Sign in to access your medical practice & pharmacy brokerage
-              dashboard
-            </Text>
+            <Title3 className={styles.title}>{t("welcomeBack")}</Title3>
+            <Text className={styles.subtitle}>{t("loginSubtitle")}</Text>
           </div>
 
           <Button
@@ -147,7 +146,7 @@ export default function LoginPage() {
             disabled={isLoading}
             icon={isLoading ? <Spinner size="tiny" /> : <PersonRegular />}
           >
-            {isLoading ? "Signing in..." : "Sign in with SSO"}
+            {isLoading ? t("signingIn") : t("signInSSO")}
           </Button>
 
           {error && (
@@ -159,13 +158,11 @@ export default function LoginPage() {
           <div className={styles.features}>
             <div className={styles.feature}>
               <ShieldCheckmarkRegular />
-              <Text size={300}>
-                Secure authentication via your organization
-              </Text>
+              <Text size={300}>{t("secureAuth")}</Text>
             </div>
             <div className={styles.feature}>
               <PersonRegular />
-              <Text size={300}>Role-based access control</Text>
+              <Text size={300}>{t("roleBasedAccess")}</Text>
             </div>
           </div>
         </CardPreview>

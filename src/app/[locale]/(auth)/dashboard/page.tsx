@@ -1,11 +1,11 @@
 // src/app/(auth)/dashboard/page.tsx
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useQuery } from "@tanstack/react-query";
 import {
   Card,
   CardHeader,
-  CardPreview,
   Text,
   makeStyles,
   tokens,
@@ -33,6 +33,9 @@ const useStyles = makeStyles({
     alignItems: "center",
     gap: "12px",
   },
+  statIcon: {
+    fontSize: "24px",
+  },
   statValue: {
     fontSize: "32px",
     fontWeight: "600",
@@ -57,6 +60,7 @@ async function fetchDashboardStats() {
 }
 
 export default function DashboardPage() {
+  const t = useTranslations("dashboard");
   const styles = useStyles();
   const { data: stats, isLoading } = useQuery({
     queryKey: ["dashboard-stats"],
@@ -66,7 +70,7 @@ export default function DashboardPage() {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <Spinner label="Loading dashboard..." />
+        <Spinner label={t("loading")} />
       </div>
     );
   }
@@ -74,25 +78,25 @@ export default function DashboardPage() {
   const statCards = [
     {
       icon: <Heart24Filled />,
-      label: "Active Practices",
+      label: t("activePractices"),
       value: stats?.activePractices || 0,
       color: tokens.colorPaletteRedBackground3,
     },
     {
       icon: <BuildingRetail24Filled />,
-      label: "Active Pharmacies",
+      label: t("activePharmacies"),
       value: stats?.activePharmacies || 0,
       color: tokens.colorPaletteGreenBackground3,
     },
     {
       icon: <ArrowSwap24Filled />,
-      label: "Open Transactions",
+      label: t("openTransactions"),
       value: stats?.openTransactions || 0,
-      color: tokens.colorPaletteBlueBackground3,
+      color: tokens.colorPaletteBlueBackground2,
     },
     {
       icon: <Money24Filled />,
-      label: "Monthly Revenue",
+      label: t("monthlyRevenue"),
       value: `€${stats?.monthlyRevenue?.toLocaleString() || 0}`,
       color: tokens.colorPaletteYellowBackground3,
     },
@@ -101,8 +105,8 @@ export default function DashboardPage() {
   return (
     <div>
       <div className="mb-8">
-        <h1 className="text-3xl font-bold mb-2">Dashboard</h1>
-        <Text size={400}>Overview of your brokerage operations</Text>
+        <h1 className="text-3xl font-bold mb-2">{t("title")}</h1>
+        <Text size={400}>{t("subtitle")}</Text>
       </div>
 
       <div className={styles.grid}>
@@ -111,7 +115,7 @@ export default function DashboardPage() {
             <CardHeader
               header={
                 <div className={styles.statHeader}>
-                  <div style={{ color: stat.color }}>{stat.icon}</div>
+                  <div className={styles.statIcon}>{stat.icon}</div>
                   <div>
                     <div className={styles.statValue}>{stat.value}</div>
                     <div className={styles.statLabel}>{stat.label}</div>
@@ -124,10 +128,10 @@ export default function DashboardPage() {
       </div>
 
       <div className={styles.chartContainer}>
-        <h2 className="text-xl font-semibold mb-4">Transaction Trends</h2>
+        <h2 className="text-xl font-semibold mb-4">{t("transactionTrends")}</h2>
         {/* Chart component would go here */}
         <div className="h-64 flex items-center justify-center text-gray-500">
-          Transaction chart visualization
+          {t("chartPlaceholder")}
         </div>
       </div>
     </div>

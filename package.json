@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
+    "dev": "next dev",
+    "dev:turbo": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -16,6 +17,7 @@
     "axios": "^1.11.0",
     "next": "15.4.6",
     "next-auth": "^4.24.11",
+    "next-intl": "^4.3.4",
     "openid-client": "^6.6.3",
     "pg": "^8.16.3",
     "prisma": "^6.13.0",
@@ -31,6 +33,7 @@
     "@testing-library/react": "^16.3.0",
     "@types/next-auth": "^3.13.0",
     "@types/node": "^20",
+    "@types/pg": "^8.15.5",
     "@types/react": "^18.3.23",
     "@types/react-dom": "^18.3.7",
     "cypress": "^14.5.4",
