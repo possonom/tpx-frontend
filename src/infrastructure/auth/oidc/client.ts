@@ -121,7 +121,7 @@ export class OIDCClient {
 
   async getUserInfo(accessToken: string): Promise<client.UserInfoResponse> {
     const config = this.getConfig();
-    return await client.fetchUserInfo(config, accessToken, '');
+    return await client.fetchUserInfo(config, accessToken);
   }
 
   // Helper to get ID token claims
