@@ -34,14 +34,20 @@
   },
   "dashboard": {
     "title": "Dashboard",
+    "subtitle": "Übersicht über Ihre Arztpraxis- und Apothekenvermittlung",
     "welcome": "Willkommen bei THP AG",
     "totalPractices": "Praxen gesamt",
     "totalPharmacies": "Apotheken gesamt",
+    "activePractices": "Aktive Praxen",
+    "activePharmacies": "Aktive Apotheken",
     "activeTransactions": "Aktive Transaktionen",
+    "openTransactions": "Offene Transaktionen",
     "monthlyRevenue": "Monatsumsatz",
     "recentActivities": "Letzte Aktivitäten",
     "quickActions": "Schnellaktionen",
     "viewAll": "Alle anzeigen",
+    "transactionTrends": "Transaktionstrends",
+    "chartPlaceholder": "Diagrammdaten werden hier angezeigt",
     "loading": "Wird geladen...",
     "error": "Fehler beim Laden der Daten",
     "retry": "Erneut versuchen"
@@ -138,7 +144,10 @@
     "details": "Details",
     "export": "Exportieren",
     "import": "Importieren",
-    "print": "Drucken"
+    "print": "Drucken",
+    "total": "Gesamt",
+    "status": "Status",
+    "all": "Alle"
   },
   "forms": {
     "required": "Pflichtfeld",
@@ -154,7 +163,29 @@
     "company": "Unternehmen",
     "website": "Website",
     "notes": "Notizen",
-    "description": "Beschreibung"
+    "description": "Beschreibung",
+    "addNew": "Neu hinzufügen",
+    "create": "Erstellen",
+    "cancel": "Abbrechen",
+    "save": "Speichern",
+    "name": "Name",
+    "location": "Standort",
+    "contact": "Kontaktinformationen",
+    "owner": "Eigentümer",
+    "documents": "Dokumente",
+    "upload": "Hochladen",
+    "remove": "Entfernen",
+    "addAnother": "Weitere hinzufügen",
+    "success": "Erfolgreich erstellt",
+    "error": "Fehler beim Erstellen",
+    "validation": {
+      "required": "Dieses Feld ist erforderlich",
+      "email": "Bitte geben Sie eine gültige E-Mail-Adresse ein",
+      "phone": "Bitte geben Sie eine gültige Telefonnummer ein",
+      "positive": "Wert muss positiv sein",
+      "min": "Mindestwert ist {min}",
+      "max": "Höchstwert ist {max}"
+    }
   },
   "permissions": {
     "admin": "Administrator",
@@ -230,5 +261,79 @@
     "custom": "Benutzerdefiniert",
     "from": "Von",
     "to": "Bis"
+  },
+  "address": {
+    "street": "Straße",
+    "city": "Stadt",
+    "state": "Bundesland",
+    "postalCode": "Postleitzahl",
+    "country": "Land"
+  },
+  "contact": {
+    "email": "E-Mail",
+    "phone": "Telefon",
+    "mobile": "Mobiltelefon",
+    "preferredContact": "Bevorzugte Kontaktmethode"
+  },
+  "practice": {
+    "addNew": "Neue Praxis hinzufügen",
+    "specialization": "Fachrichtung",
+    "estimatedValue": "Geschätzter Wert",
+    "valuationDate": "Bewertungsdatum",
+    "methodology": "Bewertungsmethodik",
+    "annualRevenue": "Jahresumsatz",
+    "ebitda": "EBITDA",
+    "patientBase": "Patientenstamm",
+    "licenseNumber": "Lizenznummer",
+    "specializations": {
+      "GENERAL_PRACTICE": "Allgemeinmedizin",
+      "CARDIOLOGY": "Kardiologie",
+      "DERMATOLOGY": "Dermatologie",
+      "ORTHOPEDICS": "Orthopädie",
+      "PEDIATRICS": "Pädiatrie",
+      "PSYCHIATRY": "Psychiatrie",
+      "RADIOLOGY": "Radiologie",
+      "SURGERY": "Chirurgie",
+      "INTERNAL_MEDICINE": "Innere Medizin",
+      "EMERGENCY_MEDICINE": "Notfallmedizin",
+      "ANESTHESIOLOGY": "Anästhesiologie",
+      "OBSTETRICS_GYNECOLOGY": "Gynäkologie & Geburtshilfe",
+      "OPHTHALMOLOGY": "Augenheilkunde",
+      "ENT": "HNO",
+      "UROLOGY": "Urologie",
+      "NEUROLOGY": "Neurologie",
+      "ONCOLOGY": "Onkologie",
+      "PATHOLOGY": "Pathologie",
+      "OTHER": "Andere"
+    },
+    "methodologies": {
+      "INCOME": "Ertragswertverfahren",
+      "MARKET": "Vergleichswertverfahren",
+      "ASSET": "Sachwertverfahren"
+    }
+  },
+  "pharmacy": {
+    "addNew": "Neue Apotheke hinzufügen",
+    "type": "Apothekentyp",
+    "licenses": "Lizenzen",
+    "revenue": "Umsatzinformationen",
+    "prescriptionVolume": "Rezeptvolumen",
+    "averageTicketSize": "Durchschnittlicher Kassenbetrag",
+    "ownershipPercentage": "Eigentumsanteil",
+    "types": {
+      "RETAIL": "Einzelhandel",
+      "HOSPITAL": "Krankenhaus",
+      "CLINICAL": "Klinisch",
+      "COMPOUNDING": "Rezeptur",
+      "SPECIALTY": "Speziell",
+      "MAIL_ORDER": "Versandhandel",
+      "ONLINE": "Online"
+    },
+    "licenseTypes": {
+      "STATE": "Staatslizenz",
+      "DEA": "DEA-Lizenz",
+      "NPI": "NPI",
+      "NCPDP": "NCPDP"
+    }
   }
 }

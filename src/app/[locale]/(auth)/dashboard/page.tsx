@@ -62,6 +62,7 @@ async function fetchDashboardStats() {
 export default function DashboardPage() {
   const t = useTranslations("dashboard");
   const styles = useStyles();
+
   const { data: stats, isLoading } = useQuery({
     queryKey: ["dashboard-stats"],
     queryFn: fetchDashboardStats,

@@ -3,6 +3,7 @@
 import { useTranslations } from "next-intl";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import {
   Card,
   CardHeader,
@@ -207,6 +208,7 @@ function formatCurrency(amount: number): string {
 export default function PharmaciesPage() {
   const t = useTranslations("pharmacies");
   const tCommon = useTranslations("common");
+  const router = useRouter();
   const styles = useStyles();
   
   const [searchTerm, setSearchTerm] = useState("");
@@ -276,6 +278,7 @@ export default function PharmaciesPage() {
           appearance="primary"
           icon={<Add24Regular />}
           size="medium"
+          onClick={() => router.push("/pharmacies/add")}
         >
           {t("addNew")}
         </Button>

@@ -225,6 +225,33 @@ export async function GET(request: NextRequest) {
   }
 }
 
+export async function POST(request: NextRequest) {
+  try {
+    const body = await request.json();
+    
+    // In a real application, you would save to the database here
+    const newPractice: MedicalPractice = {
+      ...body,
+      id: crypto.randomUUID(),
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
+
+    console.log("Creating new practice:", newPractice);
+
+    // Add to mock data for demonstration
+    mockPractices.push(newPractice);
+
+    return NextResponse.json(newPractice, { status: 201 });
+  } catch (error) {
+    console.error("Error creating practice:", error);
+    return NextResponse.json(
+      { error: "Failed to create practice" },
+      { status: 500 }
+    );
+  }
+}
+
 export async function PATCH(request: NextRequest) {
   try {
     const body = await request.json();

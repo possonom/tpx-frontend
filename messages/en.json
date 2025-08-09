@@ -18,8 +18,14 @@
     "login": "Login",
     "loginTitle": "Sign in to THP AG",
     "loginSubtitle": "Sign in with your corporate credentials",
+    "welcomeBack": "Welcome Back",
+    "signInSSO": "Sign In with SSO",
+    "signingIn": "Signing in...",
+    "secureAuth": "Secure authentication through your organization",
+    "roleBasedAccess": "Role-based access control",
     "loginButton": "Sign In",
     "loginError": "Authentication failed. Please try again.",
+    "unexpectedError": "An unexpected error occurred. Please try again.",
     "loginLoading": "Signing in...",
     "logout": "Logout",
     "unauthorized": "Unauthorized",
@@ -28,14 +34,20 @@
   },
   "dashboard": {
     "title": "Dashboard",
+    "subtitle": "Overview of your medical practice and pharmacy brokerage",
     "welcome": "Welcome to THP AG",
     "totalPractices": "Total Practices",
     "totalPharmacies": "Total Pharmacies",
+    "activePractices": "Active Practices",
+    "activePharmacies": "Active Pharmacies",
     "activeTransactions": "Active Transactions",
+    "openTransactions": "Open Transactions",
     "monthlyRevenue": "Monthly Revenue",
     "recentActivities": "Recent Activities",
     "quickActions": "Quick Actions",
     "viewAll": "View All",
+    "transactionTrends": "Transaction Trends",
+    "chartPlaceholder": "Chart data will be displayed here",
     "loading": "Loading...",
     "error": "Error loading data",
     "retry": "Retry"
@@ -132,7 +144,10 @@
     "details": "Details",
     "export": "Export",
     "import": "Import",
-    "print": "Print"
+    "print": "Print",
+    "total": "Total",
+    "status": "Status",
+    "all": "All"
   },
   "forms": {
     "required": "Required field",
@@ -148,7 +163,29 @@
     "company": "Company",
     "website": "Website",
     "notes": "Notes",
-    "description": "Description"
+    "description": "Description",
+    "addNew": "Add New",
+    "create": "Create",
+    "cancel": "Cancel",
+    "save": "Save",
+    "name": "Name",
+    "location": "Location",
+    "contact": "Contact Information",
+    "owner": "Owner",
+    "documents": "Documents",
+    "upload": "Upload",
+    "remove": "Remove",
+    "addAnother": "Add Another",
+    "success": "Successfully created",
+    "error": "Error creating entity",
+    "validation": {
+      "required": "This field is required",
+      "email": "Please enter a valid email address",
+      "phone": "Please enter a valid phone number",
+      "positive": "Value must be positive",
+      "min": "Minimum value is {min}",
+      "max": "Maximum value is {max}"
+    }
   },
   "permissions": {
     "admin": "Administrator",
@@ -224,5 +261,79 @@
     "custom": "Custom",
     "from": "From",
     "to": "To"
+  },
+  "address": {
+    "street": "Street",
+    "city": "City",
+    "state": "State",
+    "postalCode": "Postal Code",
+    "country": "Country"
+  },
+  "contact": {
+    "email": "Email",
+    "phone": "Phone",
+    "mobile": "Mobile",
+    "preferredContact": "Preferred Contact Method"
+  },
+  "practice": {
+    "addNew": "Add New Practice",
+    "specialization": "Specialization",
+    "estimatedValue": "Estimated Value",
+    "valuationDate": "Valuation Date",
+    "methodology": "Valuation Methodology",
+    "annualRevenue": "Annual Revenue",
+    "ebitda": "EBITDA",
+    "patientBase": "Patient Base",
+    "licenseNumber": "License Number",
+    "specializations": {
+      "GENERAL_PRACTICE": "General Practice",
+      "CARDIOLOGY": "Cardiology",
+      "DERMATOLOGY": "Dermatology",
+      "ORTHOPEDICS": "Orthopedics",
+      "PEDIATRICS": "Pediatrics",
+      "PSYCHIATRY": "Psychiatry",
+      "RADIOLOGY": "Radiology",
+      "SURGERY": "Surgery",
+      "INTERNAL_MEDICINE": "Internal Medicine",
+      "EMERGENCY_MEDICINE": "Emergency Medicine",
+      "ANESTHESIOLOGY": "Anesthesiology",
+      "OBSTETRICS_GYNECOLOGY": "Obstetrics & Gynecology",
+      "OPHTHALMOLOGY": "Ophthalmology",
+      "ENT": "ENT",
+      "UROLOGY": "Urology",
+      "NEUROLOGY": "Neurology",
+      "ONCOLOGY": "Oncology",
+      "PATHOLOGY": "Pathology",
+      "OTHER": "Other"
+    },
+    "methodologies": {
+      "INCOME": "Income Approach",
+      "MARKET": "Market Approach",
+      "ASSET": "Asset Approach"
+    }
+  },
+  "pharmacy": {
+    "addNew": "Add New Pharmacy",
+    "type": "Pharmacy Type",
+    "licenses": "Licenses",
+    "revenue": "Revenue Information",
+    "prescriptionVolume": "Prescription Volume",
+    "averageTicketSize": "Average Ticket Size",
+    "ownershipPercentage": "Ownership Percentage",
+    "types": {
+      "RETAIL": "Retail",
+      "HOSPITAL": "Hospital",
+      "CLINICAL": "Clinical",
+      "COMPOUNDING": "Compounding",
+      "SPECIALTY": "Specialty",
+      "MAIL_ORDER": "Mail Order",
+      "ONLINE": "Online"
+    },
+    "licenseTypes": {
+      "STATE": "State License",
+      "DEA": "DEA License",
+      "NPI": "NPI",
+      "NCPDP": "NCPDP"
+    }
   }
 }

@@ -73,10 +73,6 @@ export const authOptions: NextAuthOptions = {
     strategy: "jwt",
     maxAge: 8 * 60 * 60, // 8 hours
   },
-  pages: {
-    signIn: "/login",
-    error: "/auth/error",
-  },
   callbacks: {
     async jwt({ token, account, profile, user }) {
       // Initial sign in
