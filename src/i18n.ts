@@ -1,15 +1,14 @@
 // src/i18n.ts
 import { getRequestConfig } from "next-intl/server";
 
-// Available locales
-export const locales = ["de", "en"] as const;
-export const defaultLocale = "de" as const; // Restored to original
+// Single German locale only
+export const locales = ["de"] as const;
+export const defaultLocale = "de" as const;
 export type Locale = (typeof locales)[number];
 
 export default getRequestConfig(async ({ locale }) => {
-  // Handle undefined locale by using default
-  const validLocale =
-    locale && locales.includes(locale as Locale) ? locale : defaultLocale;
+  // Since we only support German, always use "de"
+  const validLocale = "de";
 
   return {
     locale: validLocale,

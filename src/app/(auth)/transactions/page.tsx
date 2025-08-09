@@ -34,7 +34,7 @@ import {
   BrokerageTransaction,
   TransactionStatus,
   TransactionType,
-} from "../../../../domain/entities/Transaction";
+} from "@domain/domain/entities/Transaction";
 
 // Interface for raw API response with date strings
 interface RawBrokerageTransaction extends Omit<BrokerageTransaction, 'createdAt' | 'updatedAt' | 'timeline'> {

@@ -29,7 +29,7 @@ import {
   ZmoAnnouncement,
   ZmoAnnouncementStatus,
   getStatusColor,
-} from "../../../../domain/entities/ZmoAnnouncement";
+} from "@domain/domain/entities/ZmoAnnouncement";
 
 // Interface for raw API response with date strings
 interface RawZmoAnnouncement

@@ -1,10 +1,10 @@
 "use client";
-// src/app/not-found.tsx
-// Root not found page
+// src/app/[locale]/not-found.tsx
+// Not found page for locale routes
 import { Button } from "@fluentui/react-components";
 import Link from "next/link";
 
-export default function NotFound() {
+export default function LocaleNotFound() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
       <div className="max-w-md mx-auto text-center">
@@ -17,10 +17,10 @@ export default function NotFound() {
           changed, or is temporarily unavailable.
         </p>
         <div className="flex gap-4 justify-center">
-          <Link href="/en/dashboard">
+          <Link href="/dashboard">
             <Button appearance="primary">Go to Dashboard</Button>
           </Link>
-          <Link href="/en">
+          <Link href="/">
             <Button>Go Home</Button>
           </Link>
         </div>

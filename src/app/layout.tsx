@@ -1,15 +1,32 @@
 // src/app/layout.tsx
-// This is the root layout that handles locale routing
+import type { Metadata } from "next";
+import { NextIntlClientProvider } from "next-intl";
+import { getMessages } from "next-intl/server";
 import "./globals.css";
+import { Providers } from "./providers";
 
-export default function RootLayout({
+export const metadata: Metadata = {
+  title: "THP AG Dashboard",
+  description: "Medical Practice & Pharmacy Brokerage Management",
+};
+
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  // Always use German locale
+  const messages = await getMessages({ locale: "de" });
+
   return (
-    <html lang="en">
-      <body>{children}</body>
+    <html lang="de">
+      <body>
+        <NextIntlClientProvider messages={messages} locale="de">
+          <Providers>
+            <div className="min-h-screen bg-gray-50">{children}</div>
+          </Providers>
+        </NextIntlClientProvider>
+      </body>
     </html>
   );
 }

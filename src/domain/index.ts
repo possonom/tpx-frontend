@@ -5,6 +5,9 @@ export * from "./entities/Practice";
 export * from "./entities/Pharmacy";
 export * from "./entities/Transaction";
 
+import { MedicalPractice } from "./entities/Practice";
+import { Pharmacy } from "./entities/Pharmacy";
+
 // Type guards
 export function isMedicalPractice(
   asset: MedicalPractice | Pharmacy

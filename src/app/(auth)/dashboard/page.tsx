@@ -1,8 +1,8 @@
 // src/app/(auth)/dashboard/page.tsx
 "use client";
 
-import { useTranslations } from "next-intl";
 import { useQuery } from "@tanstack/react-query";
+import { useTranslations } from "next-intl";
 import {
   Card,
   CardHeader,

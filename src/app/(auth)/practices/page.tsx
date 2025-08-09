@@ -1,7 +1,7 @@
 "use client";
 
-import { useTranslations } from "next-intl";
 import { useQuery } from "@tanstack/react-query";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import {
@@ -30,7 +30,7 @@ import {
   MedicalPractice,
   PracticeStatus,
   MedicalSpecialization,
-} from "../../../../domain/entities/Practice";
+} from "@domain/domain/entities/Practice";
 
 // Interface for raw API response with date strings
 interface RawMedicalPractice
@@ -310,10 +310,10 @@ export default function PracticesPage() {
       <div className={styles.header}>
         <div className={styles.headerContent}>
           <Text size={600} weight="semibold">
-            {t("title")}
+            Praxen
           </Text>
           <Text size={400} style={{ color: tokens.colorNeutralForeground2 }}>
-            {t("subtitle")}
+            Verwalten Sie medizinische Praxen und deren Vermittlungen
           </Text>
         </div>
         <Button
@@ -322,7 +322,7 @@ export default function PracticesPage() {
           size="medium"
           onClick={() => router.push("/practices/add")}
         >
-          {t("addNew")}
+          Neue Praxis hinzufügen
         </Button>
       </div>
 
@@ -331,13 +331,13 @@ export default function PracticesPage() {
         <Card className={styles.statCard}>
           <div className={styles.statValue}>{summary.total}</div>
           <Text size={300} style={{ color: tokens.colorNeutralForeground2 }}>
-            {tCommon("total")} {t("title")}
+            Praxen gesamt
           </Text>
         </Card>
         <Card className={styles.statCard}>
           <div className={styles.statValue}>{summary.active}</div>
           <Text size={300} style={{ color: tokens.colorNeutralForeground2 }}>
-            {t("active")}
+            Aktiv
           </Text>
         </Card>
         <Card className={styles.statCard}>
@@ -359,25 +359,25 @@ export default function PracticesPage() {
       {/* Filters */}
       <div className={styles.filters}>
         <SearchBox
-          placeholder={t("search")}
+          placeholder="Praxen suchen..."
           value={searchTerm}
           onChange={(_, data) => handleSearch(data.value)}
           contentBefore={<Search24Regular />}
           size="medium"
         />
         <Dropdown
-          placeholder={tCommon("status")}
+          placeholder="Status"
           value={statusFilter}
           onOptionSelect={(_, data) =>
             handleStatusFilter(data.optionValue as string)
           }
         >
-          <Option value="">{tCommon("all")}</Option>
-          <Option value="ACTIVE">{t("active")}</Option>
+          <Option value="">Alle</Option>
+          <Option value="ACTIVE">Aktiv</Option>
           <Option value="FOR_SALE">Zum Verkauf</Option>
           <Option value="UNDER_CONTRACT">Unter Vertrag</Option>
           <Option value="SOLD">Verkauft</Option>
-          <Option value="INACTIVE">{t("inactive")}</Option>
+          <Option value="INACTIVE">Inaktiv</Option>
         </Dropdown>
         <Dropdown
           placeholder="Fachrichtung"
@@ -386,7 +386,7 @@ export default function PracticesPage() {
             handleSpecializationFilter(data.optionValue as string)
           }
         >
-          <Option value="">{tCommon("all")}</Option>
+          <Option value="">Alle</Option>
           <Option value="GENERAL_PRACTICE">Allgemeinmedizin</Option>
           <Option value="CARDIOLOGY">Kardiologie</Option>
           <Option value="DERMATOLOGY">Dermatologie</Option>
@@ -403,7 +403,7 @@ export default function PracticesPage() {
       {practices.length === 0 ? (
         <div className={styles.emptyState}>
           <Heart24Regular />
-          <Text size={500}>{t("noResults")}</Text>
+          <Text size={500}>Keine Praxen gefunden</Text>
         </div>
       ) : (
         <div className={styles.practicesGrid}>
@@ -424,7 +424,7 @@ export default function PracticesPage() {
               <CardPreview>
                 <div className={styles.practiceDetails}>
                   <div className={styles.detailRow}>
-                    <Text size={300}>{t("location")}:</Text>
+                    <Text size={300}>Standort:</Text>
                     <Text size={300}>
                       {practice.location.city}, {practice.location.state}
                     </Text>
@@ -454,7 +454,7 @@ export default function PracticesPage() {
                     <Text size={300}>{practice.owner.name}</Text>
                   </div>
                   <div className={styles.detailRow}>
-                    <Text size={300}>{t("created")}:</Text>
+                    <Text size={300}>Erstellt:</Text>
                     <Text size={300}>
                       {practice.createdAt.toLocaleDateString("de-DE")}
                     </Text>
@@ -466,21 +466,21 @@ export default function PracticesPage() {
                     icon={<Eye24Regular />}
                     size="small"
                   >
-                    {t("view")}
+                    Anzeigen
                   </Button>
                   <Button
                     appearance="subtle"
                     icon={<Edit24Regular />}
                     size="small"
                   >
-                    {t("edit")}
+                    Bearbeiten
                   </Button>
                   <Button
                     appearance="subtle"
                     icon={<Delete24Regular />}
                     size="small"
                   >
-                    {t("delete")}
+                    Löschen
                   </Button>
                 </div>
               </CardPreview>

@@ -1,8 +1,8 @@
 // src/app/(auth)/layout.tsx
 "use client";
 
-import { useTranslations } from "next-intl";
 import { useSession } from "next-auth/react";
+import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import {
@@ -24,7 +24,6 @@ import {
   DocumentBulletList24Regular,
 } from "@fluentui/react-icons";
 import Link from "next/link";
-import LanguageSwitcher from "../../../presentation/components/LanguageSwitcher";
 
 const useStyles = makeStyles({
   root: {
@@ -165,7 +164,6 @@ export default function AuthLayout({
             onClick={() => setDrawerOpen(true)}
           />
           <div className="flex-1" />
-          <LanguageSwitcher />
           <div className="text-sm ml-4">
             {session.user?.name || session.user?.email}
           </div>

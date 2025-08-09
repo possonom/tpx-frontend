@@ -30,7 +30,7 @@ import {
   Pharmacy,
   PharmacyStatus,
   PharmacyType,
-} from "../../../../domain/entities/Pharmacy";
+} from "@domain/domain/entities/Pharmacy";
 
 // Interface for raw API response with date strings
 interface RawPharmacy extends Omit<Pharmacy, "createdAt" | "updatedAt"> {

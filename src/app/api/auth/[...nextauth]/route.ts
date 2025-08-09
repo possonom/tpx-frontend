@@ -35,7 +35,7 @@ interface CredentialsUser {
   employeeId?: string;
 }
 
-export const authOptions: NextAuthOptions = {
+const authOptions: NextAuthOptions = {
   providers: process.env.OIDC_ISSUER
     ? [createOIDCProvider()]
     : [
