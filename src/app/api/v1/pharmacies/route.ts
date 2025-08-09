@@ -1,5 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
-import { Pharmacy, PharmacyStatus, PharmacyType } from "../../../../domain/entities/Pharmacy";
+import {
+  Pharmacy,
+  PharmacyStatus,
+  PharmacyType,
+} from "../../../../domain/entities/Pharmacy";
 
 // Mock data for pharmacies
 const mockPharmacies: Pharmacy[] = [
@@ -210,7 +214,10 @@ export async function GET(request: NextRequest) {
       total: mockPharmacies.length,
       active: mockPharmacies.filter((p) => p.status === "ACTIVE").length,
       forSale: mockPharmacies.filter((p) => p.status === "FOR_SALE").length,
-      recentRevenue: mockPharmacies.reduce((sum, p) => sum + p.revenue.annual, 0),
+      recentRevenue: mockPharmacies.reduce(
+        (sum, p) => sum + p.revenue.annual,
+        0
+      ),
     };
 
     return NextResponse.json({
@@ -229,7 +236,7 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    
+
     // In a real application, you would save to the database here
     const newPharmacy: Pharmacy = {
       ...body,

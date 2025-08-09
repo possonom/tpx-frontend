@@ -33,7 +33,7 @@ import {
 } from "../../../../domain/entities/Pharmacy";
 
 // Interface for raw API response with date strings
-interface RawPharmacy extends Omit<Pharmacy, 'createdAt' | 'updatedAt'> {
+interface RawPharmacy extends Omit<Pharmacy, "createdAt" | "updatedAt"> {
   createdAt: string;
   updatedAt: string;
 }
@@ -165,7 +165,7 @@ async function fetchPharmacies(filters: {
   }
 
   const data = await response.json();
-  
+
   // Convert date strings back to Date objects
   const pharmacies = data.pharmacies.map((pharmacy: RawPharmacy) => ({
     ...pharmacy,
@@ -179,7 +179,9 @@ async function fetchPharmacies(filters: {
   };
 }
 
-function getStatusColor(status: PharmacyStatus): "success" | "warning" | "important" | "subtle" | "danger" {
+function getStatusColor(
+  status: PharmacyStatus
+): "success" | "warning" | "important" | "subtle" | "danger" {
   switch (status) {
     case "ACTIVE":
       return "success";
@@ -210,18 +212,16 @@ export default function PharmaciesPage() {
   const tCommon = useTranslations("common");
   const router = useRouter();
   const styles = useStyles();
-  
+
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState<PharmacyStatus | "">("");
   const [typeFilter, setTypeFilter] = useState<PharmacyType | "">("");
 
-  const {
-    data,
-    isLoading,
-    isError,
-    refetch,
-  } = useQuery({
-    queryKey: ["pharmacies", { search: searchTerm, status: statusFilter, type: typeFilter }],
+  const { data, isLoading, isError, refetch } = useQuery({
+    queryKey: [
+      "pharmacies",
+      { search: searchTerm, status: statusFilter, type: typeFilter },
+    ],
     queryFn: () =>
       fetchPharmacies({
         search: searchTerm || undefined,
@@ -260,7 +260,10 @@ export default function PharmaciesPage() {
     );
   }
 
-  const { pharmacies = [], summary = { total: 0, active: 0, forSale: 0, recentRevenue: 0 } } = data || {};
+  const {
+    pharmacies = [],
+    summary = { total: 0, active: 0, forSale: 0, recentRevenue: 0 },
+  } = data || {};
 
   return (
     <div className={styles.container}>
@@ -326,7 +329,9 @@ export default function PharmaciesPage() {
         <Dropdown
           placeholder={tCommon("status")}
           value={statusFilter}
-          onOptionSelect={(_, data) => handleStatusFilter(data.optionValue as string)}
+          onOptionSelect={(_, data) =>
+            handleStatusFilter(data.optionValue as string)
+          }
         >
           <Option value="">{tCommon("all")}</Option>
           <Option value="ACTIVE">{t("active")}</Option>
@@ -338,7 +343,9 @@ export default function PharmaciesPage() {
         <Dropdown
           placeholder="Typ"
           value={typeFilter}
-          onOptionSelect={(_, data) => handleTypeFilter(data.optionValue as string)}
+          onOptionSelect={(_, data) =>
+            handleTypeFilter(data.optionValue as string)
+          }
         >
           <Option value="">{tCommon("all")}</Option>
           <Option value="RETAIL">Einzelhandel</Option>
@@ -363,9 +370,7 @@ export default function PharmaciesPage() {
             <Card key={pharmacy.id} className={styles.pharmacyCard}>
               <CardHeader>
                 <div className={styles.pharmacyHeader}>
-                  <div className={styles.pharmacyTitle}>
-                    {pharmacy.name}
-                  </div>
+                  <div className={styles.pharmacyTitle}>{pharmacy.name}</div>
                   <Badge
                     appearance="tint"
                     color={getStatusColor(pharmacy.status)}

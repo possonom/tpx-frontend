@@ -16,7 +16,14 @@ import {
   Divider,
 } from "@fluentui/react-components";
 import { Add24Regular, Delete24Regular } from "@fluentui/react-icons";
-import { Pharmacy, PharmacyType, PharmacyOwner, Address, ContactInfo, License } from "../../../domain";
+import {
+  Pharmacy,
+  PharmacyType,
+  PharmacyOwner,
+  Address,
+  ContactInfo,
+  License,
+} from "../../../domain";
 import AddressForm from "./AddressForm";
 import ContactForm from "./ContactForm";
 
@@ -76,12 +83,18 @@ const useStyles = makeStyles({
 });
 
 interface AddPharmacyFormProps {
-  onSubmit: (pharmacy: Omit<Pharmacy, "id" | "createdAt" | "updatedAt">) => void;
+  onSubmit: (
+    pharmacy: Omit<Pharmacy, "id" | "createdAt" | "updatedAt">
+  ) => void;
   onCancel: () => void;
   isLoading?: boolean;
 }
 
-export default function AddPharmacyForm({ onSubmit, onCancel, isLoading }: AddPharmacyFormProps) {
+export default function AddPharmacyForm({
+  onSubmit,
+  onCancel,
+  isLoading,
+}: AddPharmacyFormProps) {
   const t = useTranslations();
   const styles = useStyles();
 
@@ -172,11 +185,11 @@ export default function AddPharmacyForm({ onSubmit, onCancel, isLoading }: AddPh
   };
 
   const handleLocationChange = (location: Partial<Address>) => {
-    setFormData(prev => ({ ...prev, location }));
+    setFormData((prev) => ({ ...prev, location }));
   };
 
   const handleOwnerContactChange = (contactInfo: Partial<ContactInfo>) => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
       owner: {
         ...prev.owner,
@@ -186,7 +199,7 @@ export default function AddPharmacyForm({ onSubmit, onCancel, isLoading }: AddPh
   };
 
   const addLicense = () => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
       licenses: [
         ...prev.licenses,
@@ -202,16 +215,20 @@ export default function AddPharmacyForm({ onSubmit, onCancel, isLoading }: AddPh
   };
 
   const removeLicense = (index: number) => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
       licenses: prev.licenses.filter((_, i) => i !== index),
     }));
   };
 
-  const updateLicense = (index: number, field: keyof License, value: string | Date) => {
-    setFormData(prev => ({
+  const updateLicense = (
+    index: number,
+    field: keyof License,
+    value: string | Date
+  ) => {
+    setFormData((prev) => ({
       ...prev,
-      licenses: prev.licenses.map((license, i) => 
+      licenses: prev.licenses.map((license, i) =>
         i === index ? { ...license, [field]: value } : license
       ),
     }));
@@ -230,10 +247,8 @@ export default function AddPharmacyForm({ onSubmit, onCancel, isLoading }: AddPh
           <form onSubmit={handleSubmit} className={styles.form}>
             {/* Basic Information */}
             <div className={styles.formSection}>
-              <Text className={styles.sectionTitle}>
-                Basic Information
-              </Text>
-              
+              <Text className={styles.sectionTitle}>Basic Information</Text>
+
               <Field
                 label={t("forms.name")}
                 required
@@ -242,22 +257,21 @@ export default function AddPharmacyForm({ onSubmit, onCancel, isLoading }: AddPh
               >
                 <Input
                   value={formData.name}
-                  onChange={(_, data) => setFormData(prev => ({ ...prev, name: data.value }))}
+                  onChange={(_, data) =>
+                    setFormData((prev) => ({ ...prev, name: data.value }))
+                  }
                   placeholder={t("forms.name")}
                 />
               </Field>
 
-              <Field
-                label={t("pharmacy.type")}
-                required
-              >
+              <Field label={t("pharmacy.type")} required>
                 <Dropdown
                   value={formData.type}
                   selectedOptions={[formData.type]}
-                  onOptionSelect={(_, data) => 
-                    setFormData(prev => ({ 
-                      ...prev, 
-                      type: data.optionValue as PharmacyType 
+                  onOptionSelect={(_, data) =>
+                    setFormData((prev) => ({
+                      ...prev,
+                      type: data.optionValue as PharmacyType,
                     }))
                   }
                 >
@@ -274,9 +288,7 @@ export default function AddPharmacyForm({ onSubmit, onCancel, isLoading }: AddPh
 
             {/* Location */}
             <div className={styles.formSection}>
-              <Text className={styles.sectionTitle}>
-                {t("forms.location")}
-              </Text>
+              <Text className={styles.sectionTitle}>{t("forms.location")}</Text>
               <AddressForm
                 address={formData.location}
                 onChange={handleLocationChange}
@@ -297,7 +309,7 @@ export default function AddPharmacyForm({ onSubmit, onCancel, isLoading }: AddPh
               <Text className={styles.sectionTitle}>
                 {t("pharmacy.revenue")}
               </Text>
-              
+
               <div className={styles.formRow}>
                 <Field
                   className={styles.formField}
@@ -309,8 +321,8 @@ export default function AddPharmacyForm({ onSubmit, onCancel, isLoading }: AddPh
                   <Input
                     type="number"
                     value={formData.revenue.annual.toString()}
-                    onChange={(_, data) => 
-                      setFormData(prev => ({
+                    onChange={(_, data) =>
+                      setFormData((prev) => ({
                         ...prev,
                         revenue: {
                           ...prev.revenue,
@@ -322,15 +334,12 @@ export default function AddPharmacyForm({ onSubmit, onCancel, isLoading }: AddPh
                   />
                 </Field>
 
-                <Field
-                  className={styles.formField}
-                  label="Monthly Revenue"
-                >
+                <Field className={styles.formField} label="Monthly Revenue">
                   <Input
                     type="number"
                     value={formData.revenue.monthly.toString()}
-                    onChange={(_, data) => 
-                      setFormData(prev => ({
+                    onChange={(_, data) =>
+                      setFormData((prev) => ({
                         ...prev,
                         revenue: {
                           ...prev.revenue,
@@ -351,8 +360,8 @@ export default function AddPharmacyForm({ onSubmit, onCancel, isLoading }: AddPh
                   <Input
                     type="number"
                     value={formData.revenue.prescriptionVolume.toString()}
-                    onChange={(_, data) => 
-                      setFormData(prev => ({
+                    onChange={(_, data) =>
+                      setFormData((prev) => ({
                         ...prev,
                         revenue: {
                           ...prev.revenue,
@@ -371,8 +380,8 @@ export default function AddPharmacyForm({ onSubmit, onCancel, isLoading }: AddPh
                   <Input
                     type="number"
                     value={formData.revenue.averageTicketSize.toString()}
-                    onChange={(_, data) => 
-                      setFormData(prev => ({
+                    onChange={(_, data) =>
+                      setFormData((prev) => ({
                         ...prev,
                         revenue: {
                           ...prev.revenue,
@@ -390,10 +399,8 @@ export default function AddPharmacyForm({ onSubmit, onCancel, isLoading }: AddPh
 
             {/* Owner Information */}
             <div className={styles.formSection}>
-              <Text className={styles.sectionTitle}>
-                {t("forms.owner")}
-              </Text>
-              
+              <Text className={styles.sectionTitle}>{t("forms.owner")}</Text>
+
               <div className={styles.formRow}>
                 <Field
                   className={styles.formField}
@@ -404,8 +411,8 @@ export default function AddPharmacyForm({ onSubmit, onCancel, isLoading }: AddPh
                 >
                   <Input
                     value={formData.owner.name || ""}
-                    onChange={(_, data) => 
-                      setFormData(prev => ({
+                    onChange={(_, data) =>
+                      setFormData((prev) => ({
                         ...prev,
                         owner: { ...prev.owner, name: data.value },
                       }))
@@ -419,12 +426,14 @@ export default function AddPharmacyForm({ onSubmit, onCancel, isLoading }: AddPh
                   label="License Number"
                   required
                   validationMessage={errors["owner.licenseNumber"]}
-                  validationState={errors["owner.licenseNumber"] ? "error" : "none"}
+                  validationState={
+                    errors["owner.licenseNumber"] ? "error" : "none"
+                  }
                 >
                   <Input
                     value={formData.owner.licenseNumber || ""}
-                    onChange={(_, data) => 
-                      setFormData(prev => ({
+                    onChange={(_, data) =>
+                      setFormData((prev) => ({
                         ...prev,
                         owner: { ...prev.owner, licenseNumber: data.value },
                       }))
@@ -434,20 +443,20 @@ export default function AddPharmacyForm({ onSubmit, onCancel, isLoading }: AddPh
                 </Field>
               </div>
 
-              <Field
-                label={t("pharmacy.ownershipPercentage")}
-              >
+              <Field label={t("pharmacy.ownershipPercentage")}>
                 <Input
                   type="number"
                   min="0"
                   max="100"
-                  value={formData.owner.ownershipPercentage?.toString() || "100"}
-                  onChange={(_, data) => 
-                    setFormData(prev => ({
+                  value={
+                    formData.owner.ownershipPercentage?.toString() || "100"
+                  }
+                  onChange={(_, data) =>
+                    setFormData((prev) => ({
                       ...prev,
-                      owner: { 
-                        ...prev.owner, 
-                        ownershipPercentage: parseFloat(data.value) || 100 
+                      owner: {
+                        ...prev.owner,
+                        ownershipPercentage: parseFloat(data.value) || 100,
                       },
                     }))
                   }
@@ -494,57 +503,73 @@ export default function AddPharmacyForm({ onSubmit, onCancel, isLoading }: AddPh
                   </div>
 
                   <div className={styles.formRow}>
-                    <Field
-                      className={styles.formField}
-                      label="License Number"
-                    >
+                    <Field className={styles.formField} label="License Number">
                       <Input
                         value={license.number || ""}
-                        onChange={(_, data) => updateLicense(index, "number", data.value)}
+                        onChange={(_, data) =>
+                          updateLicense(index, "number", data.value)
+                        }
                         placeholder="License Number"
                       />
                     </Field>
 
-                    <Field
-                      className={styles.formField}
-                      label="License Type"
-                    >
+                    <Field className={styles.formField} label="License Type">
                       <Dropdown
                         value={license.type || "STATE"}
                         selectedOptions={[license.type || "STATE"]}
-                        onOptionSelect={(_, data) => 
-                          updateLicense(index, "type", data.optionValue as string)
+                        onOptionSelect={(_, data) =>
+                          updateLicense(
+                            index,
+                            "type",
+                            data.optionValue as string
+                          )
                         }
                       >
-                        {Object.keys(t.raw("pharmacy.licenseTypes")).map((type) => (
-                          <Option key={type} value={type}>
-                            {t(`pharmacy.licenseTypes.${type}`)}
-                          </Option>
-                        ))}
+                        {Object.keys(t.raw("pharmacy.licenseTypes")).map(
+                          (type) => (
+                            <Option key={type} value={type}>
+                              {t(`pharmacy.licenseTypes.${type}`)}
+                            </Option>
+                          )
+                        )}
                       </Dropdown>
                     </Field>
                   </div>
 
                   <div className={styles.formRow}>
-                    <Field
-                      className={styles.formField}
-                      label="Issued Date"
-                    >
+                    <Field className={styles.formField} label="Issued Date">
                       <Input
                         type="date"
-                        value={license.issuedDate ? license.issuedDate.toISOString().split('T')[0] : ""}
-                        onChange={(_, data) => updateLicense(index, "issuedDate", new Date(data.value))}
+                        value={
+                          license.issuedDate
+                            ? license.issuedDate.toISOString().split("T")[0]
+                            : ""
+                        }
+                        onChange={(_, data) =>
+                          updateLicense(
+                            index,
+                            "issuedDate",
+                            new Date(data.value)
+                          )
+                        }
                       />
                     </Field>
 
-                    <Field
-                      className={styles.formField}
-                      label="Expiry Date"
-                    >
+                    <Field className={styles.formField} label="Expiry Date">
                       <Input
                         type="date"
-                        value={license.expiryDate ? license.expiryDate.toISOString().split('T')[0] : ""}
-                        onChange={(_, data) => updateLicense(index, "expiryDate", new Date(data.value))}
+                        value={
+                          license.expiryDate
+                            ? license.expiryDate.toISOString().split("T")[0]
+                            : ""
+                        }
+                        onChange={(_, data) =>
+                          updateLicense(
+                            index,
+                            "expiryDate",
+                            new Date(data.value)
+                          )
+                        }
                       />
                     </Field>
                   </div>
@@ -554,15 +579,15 @@ export default function AddPharmacyForm({ onSubmit, onCancel, isLoading }: AddPh
 
             {/* Actions */}
             <div className={styles.actions}>
-              <Button 
-                appearance="secondary" 
+              <Button
+                appearance="secondary"
                 onClick={onCancel}
                 disabled={isLoading}
               >
                 {t("forms.cancel")}
               </Button>
-              <Button 
-                appearance="primary" 
+              <Button
+                appearance="primary"
                 type="submit"
                 disabled={isLoading}
                 icon={<Add24Regular />}

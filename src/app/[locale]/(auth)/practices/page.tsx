@@ -33,7 +33,8 @@ import {
 } from "../../../../domain/entities/Practice";
 
 // Interface for raw API response with date strings
-interface RawMedicalPractice extends Omit<MedicalPractice, 'createdAt' | 'updatedAt'> {
+interface RawMedicalPractice
+  extends Omit<MedicalPractice, "createdAt" | "updatedAt"> {
   createdAt: string;
   updatedAt: string;
 }
@@ -156,7 +157,8 @@ async function fetchPractices(filters: {
 }> {
   const params = new URLSearchParams();
   if (filters.status) params.append("status", filters.status);
-  if (filters.specialization) params.append("specialization", filters.specialization);
+  if (filters.specialization)
+    params.append("specialization", filters.specialization);
   if (filters.search) params.append("search", filters.search);
 
   const response = await fetch(`/api/v1/practices?${params}`);
@@ -165,7 +167,7 @@ async function fetchPractices(filters: {
   }
 
   const data = await response.json();
-  
+
   // Convert date strings back to Date objects
   const practices = data.practices.map((practice: RawMedicalPractice) => ({
     ...practice,
@@ -183,7 +185,9 @@ async function fetchPractices(filters: {
   };
 }
 
-function getStatusColor(status: PracticeStatus): "success" | "warning" | "important" | "subtle" | "danger" {
+function getStatusColor(
+  status: PracticeStatus
+): "success" | "warning" | "important" | "subtle" | "danger" {
   switch (status) {
     case "ACTIVE":
       return "success";
@@ -200,7 +204,9 @@ function getStatusColor(status: PracticeStatus): "success" | "warning" | "import
   }
 }
 
-function getSpecializationDisplayName(specialization: MedicalSpecialization): string {
+function getSpecializationDisplayName(
+  specialization: MedicalSpecialization
+): string {
   const specializationMap: Record<MedicalSpecialization, string> = {
     GENERAL_PRACTICE: "Allgemeinmedizin",
     CARDIOLOGY: "Kardiologie",
@@ -239,18 +245,22 @@ export default function PracticesPage() {
   const tCommon = useTranslations("common");
   const router = useRouter();
   const styles = useStyles();
-  
+
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState<PracticeStatus | "">("");
-  const [specializationFilter, setSpecializationFilter] = useState<MedicalSpecialization | "">("");
+  const [specializationFilter, setSpecializationFilter] = useState<
+    MedicalSpecialization | ""
+  >("");
 
-  const {
-    data,
-    isLoading,
-    isError,
-    refetch,
-  } = useQuery({
-    queryKey: ["practices", { search: searchTerm, status: statusFilter, specialization: specializationFilter }],
+  const { data, isLoading, isError, refetch } = useQuery({
+    queryKey: [
+      "practices",
+      {
+        search: searchTerm,
+        status: statusFilter,
+        specialization: specializationFilter,
+      },
+    ],
     queryFn: () =>
       fetchPractices({
         search: searchTerm || undefined,
@@ -289,7 +299,10 @@ export default function PracticesPage() {
     );
   }
 
-  const { practices = [], summary = { total: 0, active: 0, forSale: 0, totalValue: 0 } } = data || {};
+  const {
+    practices = [],
+    summary = { total: 0, active: 0, forSale: 0, totalValue: 0 },
+  } = data || {};
 
   return (
     <div className={styles.container}>
@@ -355,7 +368,9 @@ export default function PracticesPage() {
         <Dropdown
           placeholder={tCommon("status")}
           value={statusFilter}
-          onOptionSelect={(_, data) => handleStatusFilter(data.optionValue as string)}
+          onOptionSelect={(_, data) =>
+            handleStatusFilter(data.optionValue as string)
+          }
         >
           <Option value="">{tCommon("all")}</Option>
           <Option value="ACTIVE">{t("active")}</Option>
@@ -367,7 +382,9 @@ export default function PracticesPage() {
         <Dropdown
           placeholder="Fachrichtung"
           value={specializationFilter}
-          onOptionSelect={(_, data) => handleSpecializationFilter(data.optionValue as string)}
+          onOptionSelect={(_, data) =>
+            handleSpecializationFilter(data.optionValue as string)
+          }
         >
           <Option value="">{tCommon("all")}</Option>
           <Option value="GENERAL_PRACTICE">Allgemeinmedizin</Option>
@@ -394,9 +411,7 @@ export default function PracticesPage() {
             <Card key={practice.id} className={styles.practiceCard}>
               <CardHeader>
                 <div className={styles.practiceHeader}>
-                  <div className={styles.practiceTitle}>
-                    {practice.name}
-                  </div>
+                  <div className={styles.practiceTitle}>{practice.name}</div>
                   <Badge
                     appearance="tint"
                     color={getStatusColor(practice.status)}
@@ -416,7 +431,9 @@ export default function PracticesPage() {
                   </div>
                   <div className={styles.detailRow}>
                     <Text size={300}>Fachrichtung:</Text>
-                    <Text size={300}>{getSpecializationDisplayName(practice.specialization)}</Text>
+                    <Text size={300}>
+                      {getSpecializationDisplayName(practice.specialization)}
+                    </Text>
                   </div>
                   <div className={styles.detailRow}>
                     <Text size={300}>Bewertung:</Text>
@@ -427,7 +444,9 @@ export default function PracticesPage() {
                   <div className={styles.detailRow}>
                     <Text size={300}>Umsatz:</Text>
                     <Text size={300}>
-                      {practice.valuation.annualRevenue ? formatCurrency(practice.valuation.annualRevenue) : "-"}
+                      {practice.valuation.annualRevenue
+                        ? formatCurrency(practice.valuation.annualRevenue)
+                        : "-"}
                     </Text>
                   </div>
                   <div className={styles.detailRow}>

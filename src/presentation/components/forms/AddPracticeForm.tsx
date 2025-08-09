@@ -16,7 +16,13 @@ import {
   Divider,
 } from "@fluentui/react-components";
 import { Add24Regular } from "@fluentui/react-icons";
-import { MedicalPractice, MedicalSpecialization, PracticeOwner, Address, ContactInfo } from "../../../domain";
+import {
+  MedicalPractice,
+  MedicalSpecialization,
+  PracticeOwner,
+  Address,
+  ContactInfo,
+} from "../../../domain";
 import AddressForm from "./AddressForm";
 import ContactForm from "./ContactForm";
 
@@ -64,12 +70,18 @@ const useStyles = makeStyles({
 });
 
 interface AddPracticeFormProps {
-  onSubmit: (practice: Omit<MedicalPractice, "id" | "createdAt" | "updatedAt">) => void;
+  onSubmit: (
+    practice: Omit<MedicalPractice, "id" | "createdAt" | "updatedAt">
+  ) => void;
   onCancel: () => void;
   isLoading?: boolean;
 }
 
-export default function AddPracticeForm({ onSubmit, onCancel, isLoading }: AddPracticeFormProps) {
+export default function AddPracticeForm({
+  onSubmit,
+  onCancel,
+  isLoading,
+}: AddPracticeFormProps) {
   const t = useTranslations();
   const styles = useStyles();
 
@@ -159,11 +171,11 @@ export default function AddPracticeForm({ onSubmit, onCancel, isLoading }: AddPr
   };
 
   const handleLocationChange = (location: Partial<Address>) => {
-    setFormData(prev => ({ ...prev, location }));
+    setFormData((prev) => ({ ...prev, location }));
   };
 
   const handleOwnerContactChange = (contactInfo: Partial<ContactInfo>) => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
       owner: {
         ...prev.owner,
@@ -185,10 +197,8 @@ export default function AddPracticeForm({ onSubmit, onCancel, isLoading }: AddPr
           <form onSubmit={handleSubmit} className={styles.form}>
             {/* Basic Information */}
             <div className={styles.formSection}>
-              <Text className={styles.sectionTitle}>
-                {t("forms.name")}
-              </Text>
-              
+              <Text className={styles.sectionTitle}>{t("forms.name")}</Text>
+
               <Field
                 label={t("forms.name")}
                 required
@@ -197,30 +207,31 @@ export default function AddPracticeForm({ onSubmit, onCancel, isLoading }: AddPr
               >
                 <Input
                   value={formData.name}
-                  onChange={(_, data) => setFormData(prev => ({ ...prev, name: data.value }))}
+                  onChange={(_, data) =>
+                    setFormData((prev) => ({ ...prev, name: data.value }))
+                  }
                   placeholder={t("forms.name")}
                 />
               </Field>
 
-              <Field
-                label={t("practice.specialization")}
-                required
-              >
+              <Field label={t("practice.specialization")} required>
                 <Dropdown
                   value={formData.specialization}
                   selectedOptions={[formData.specialization]}
-                  onOptionSelect={(_, data) => 
-                    setFormData(prev => ({ 
-                      ...prev, 
-                      specialization: data.optionValue as MedicalSpecialization 
+                  onOptionSelect={(_, data) =>
+                    setFormData((prev) => ({
+                      ...prev,
+                      specialization: data.optionValue as MedicalSpecialization,
                     }))
                   }
                 >
-                  {Object.keys(t.raw("practice.specializations")).map((spec) => (
-                    <Option key={spec} value={spec}>
-                      {t(`practice.specializations.${spec}`)}
-                    </Option>
-                  ))}
+                  {Object.keys(t.raw("practice.specializations")).map(
+                    (spec) => (
+                      <Option key={spec} value={spec}>
+                        {t(`practice.specializations.${spec}`)}
+                      </Option>
+                    )
+                  )}
                 </Dropdown>
               </Field>
             </div>
@@ -229,9 +240,7 @@ export default function AddPracticeForm({ onSubmit, onCancel, isLoading }: AddPr
 
             {/* Location */}
             <div className={styles.formSection}>
-              <Text className={styles.sectionTitle}>
-                {t("forms.location")}
-              </Text>
+              <Text className={styles.sectionTitle}>{t("forms.location")}</Text>
               <AddressForm
                 address={formData.location}
                 onChange={handleLocationChange}
@@ -249,10 +258,8 @@ export default function AddPracticeForm({ onSubmit, onCancel, isLoading }: AddPr
 
             {/* Valuation */}
             <div className={styles.formSection}>
-              <Text className={styles.sectionTitle}>
-                Valuation Information
-              </Text>
-              
+              <Text className={styles.sectionTitle}>Valuation Information</Text>
+
               <div className={styles.formRow}>
                 <Field
                   className={styles.formField}
@@ -264,8 +271,8 @@ export default function AddPracticeForm({ onSubmit, onCancel, isLoading }: AddPr
                   <Input
                     type="number"
                     value={formData.valuation.estimatedValue.toString()}
-                    onChange={(_, data) => 
-                      setFormData(prev => ({
+                    onChange={(_, data) =>
+                      setFormData((prev) => ({
                         ...prev,
                         valuation: {
                           ...prev.valuation,
@@ -284,19 +291,28 @@ export default function AddPracticeForm({ onSubmit, onCancel, isLoading }: AddPr
                   <Dropdown
                     value={formData.valuation.methodology}
                     selectedOptions={[formData.valuation.methodology]}
-                    onOptionSelect={(_, data) => 
-                      setFormData(prev => ({
+                    onOptionSelect={(_, data) =>
+                      setFormData((prev) => ({
                         ...prev,
                         valuation: {
                           ...prev.valuation,
-                          methodology: data.optionValue as "INCOME" | "MARKET" | "ASSET",
+                          methodology: data.optionValue as
+                            | "INCOME"
+                            | "MARKET"
+                            | "ASSET",
                         },
                       }))
                     }
                   >
-                    <Option value="INCOME">{t("practice.methodologies.INCOME")}</Option>
-                    <Option value="MARKET">{t("practice.methodologies.MARKET")}</Option>
-                    <Option value="ASSET">{t("practice.methodologies.ASSET")}</Option>
+                    <Option value="INCOME">
+                      {t("practice.methodologies.INCOME")}
+                    </Option>
+                    <Option value="MARKET">
+                      {t("practice.methodologies.MARKET")}
+                    </Option>
+                    <Option value="ASSET">
+                      {t("practice.methodologies.ASSET")}
+                    </Option>
                   </Dropdown>
                 </Field>
               </div>
@@ -309,8 +325,8 @@ export default function AddPracticeForm({ onSubmit, onCancel, isLoading }: AddPr
                   <Input
                     type="number"
                     value={formData.valuation.annualRevenue?.toString() || ""}
-                    onChange={(_, data) => 
-                      setFormData(prev => ({
+                    onChange={(_, data) =>
+                      setFormData((prev) => ({
                         ...prev,
                         valuation: {
                           ...prev.valuation,
@@ -329,8 +345,8 @@ export default function AddPracticeForm({ onSubmit, onCancel, isLoading }: AddPr
                   <Input
                     type="number"
                     value={formData.valuation.ebitda?.toString() || ""}
-                    onChange={(_, data) => 
-                      setFormData(prev => ({
+                    onChange={(_, data) =>
+                      setFormData((prev) => ({
                         ...prev,
                         valuation: {
                           ...prev.valuation,
@@ -343,14 +359,12 @@ export default function AddPracticeForm({ onSubmit, onCancel, isLoading }: AddPr
                 </Field>
               </div>
 
-              <Field
-                label={t("practice.patientBase")}
-              >
+              <Field label={t("practice.patientBase")}>
                 <Input
                   type="number"
                   value={formData.valuation.patientBase?.toString() || ""}
-                  onChange={(_, data) => 
-                    setFormData(prev => ({
+                  onChange={(_, data) =>
+                    setFormData((prev) => ({
                       ...prev,
                       valuation: {
                         ...prev.valuation,
@@ -367,10 +381,8 @@ export default function AddPracticeForm({ onSubmit, onCancel, isLoading }: AddPr
 
             {/* Owner Information */}
             <div className={styles.formSection}>
-              <Text className={styles.sectionTitle}>
-                {t("forms.owner")}
-              </Text>
-              
+              <Text className={styles.sectionTitle}>{t("forms.owner")}</Text>
+
               <div className={styles.formRow}>
                 <Field
                   className={styles.formField}
@@ -381,8 +393,8 @@ export default function AddPracticeForm({ onSubmit, onCancel, isLoading }: AddPr
                 >
                   <Input
                     value={formData.owner.name || ""}
-                    onChange={(_, data) => 
-                      setFormData(prev => ({
+                    onChange={(_, data) =>
+                      setFormData((prev) => ({
                         ...prev,
                         owner: { ...prev.owner, name: data.value },
                       }))
@@ -396,12 +408,14 @@ export default function AddPracticeForm({ onSubmit, onCancel, isLoading }: AddPr
                   label={t("practice.licenseNumber")}
                   required
                   validationMessage={errors["owner.licenseNumber"]}
-                  validationState={errors["owner.licenseNumber"] ? "error" : "none"}
+                  validationState={
+                    errors["owner.licenseNumber"] ? "error" : "none"
+                  }
                 >
                   <Input
                     value={formData.owner.licenseNumber || ""}
-                    onChange={(_, data) => 
-                      setFormData(prev => ({
+                    onChange={(_, data) =>
+                      setFormData((prev) => ({
                         ...prev,
                         owner: { ...prev.owner, licenseNumber: data.value },
                       }))
@@ -423,15 +437,15 @@ export default function AddPracticeForm({ onSubmit, onCancel, isLoading }: AddPr
 
             {/* Actions */}
             <div className={styles.actions}>
-              <Button 
-                appearance="secondary" 
+              <Button
+                appearance="secondary"
                 onClick={onCancel}
                 disabled={isLoading}
               >
                 {t("forms.cancel")}
               </Button>
-              <Button 
-                appearance="primary" 
+              <Button
+                appearance="primary"
                 type="submit"
                 disabled={isLoading}
                 icon={<Add24Regular />}

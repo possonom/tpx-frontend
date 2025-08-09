@@ -35,7 +35,11 @@ interface ContactFormProps {
   errors?: Record<string, string>;
 }
 
-export default function ContactForm({ contact, onChange, errors }: ContactFormProps) {
+export default function ContactForm({
+  contact,
+  onChange,
+  errors,
+}: ContactFormProps) {
   const t = useTranslations();
   const styles = useStyles();
 
@@ -101,7 +105,7 @@ export default function ContactForm({ contact, onChange, errors }: ContactFormPr
         <Dropdown
           value={contact.preferredContact || "EMAIL"}
           selectedOptions={[contact.preferredContact || "EMAIL"]}
-          onOptionSelect={(_, data) => 
+          onOptionSelect={(_, data) =>
             handleChange("preferredContact", data.optionValue as string)
           }
           placeholder={t("contact.preferredContact")}

@@ -1,12 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import {
-  Field,
-  Input,
-  makeStyles,
-  tokens,
-} from "@fluentui/react-components";
+import { Field, Input, makeStyles, tokens } from "@fluentui/react-components";
 import { Address } from "../../../domain";
 
 const useStyles = makeStyles({
@@ -37,7 +32,11 @@ interface AddressFormProps {
   errors?: Record<string, string>;
 }
 
-export default function AddressForm({ address, onChange, errors }: AddressFormProps) {
+export default function AddressForm({
+  address,
+  onChange,
+  errors,
+}: AddressFormProps) {
   const t = useTranslations();
   const styles = useStyles();
 

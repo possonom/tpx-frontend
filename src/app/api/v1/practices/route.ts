@@ -1,6 +1,10 @@
 // src/app/api/v1/practices/route.ts
 import { NextRequest, NextResponse } from "next/server";
-import { MedicalPractice, PracticeStatus, MedicalSpecialization } from "../../../../domain/entities/Practice";
+import {
+  MedicalPractice,
+  PracticeStatus,
+  MedicalSpecialization,
+} from "../../../../domain/entities/Practice";
 
 // Mock data for practices
 const mockPractices: MedicalPractice[] = [
@@ -175,7 +179,9 @@ export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
     const status = searchParams.get("status") as PracticeStatus | null;
-    const specialization = searchParams.get("specialization") as MedicalSpecialization | null;
+    const specialization = searchParams.get(
+      "specialization"
+    ) as MedicalSpecialization | null;
     const search = searchParams.get("search");
 
     let filteredPractices = mockPractices;
@@ -209,7 +215,10 @@ export async function GET(request: NextRequest) {
       total: mockPractices.length,
       active: mockPractices.filter((p) => p.status === "ACTIVE").length,
       forSale: mockPractices.filter((p) => p.status === "FOR_SALE").length,
-      totalValue: mockPractices.reduce((sum, p) => sum + p.valuation.estimatedValue, 0),
+      totalValue: mockPractices.reduce(
+        (sum, p) => sum + p.valuation.estimatedValue,
+        0
+      ),
     };
 
     return NextResponse.json({
@@ -228,7 +237,7 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    
+
     // In a real application, you would save to the database here
     const newPractice: MedicalPractice = {
       ...body,
