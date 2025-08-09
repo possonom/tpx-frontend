@@ -2,7 +2,6 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { useTranslations } from "next-intl";
 import {
   Card,
   CardPreview,
@@ -48,7 +47,6 @@ const useStyles = makeStyles({
 
 export default function AddPracticePage() {
   const router = useRouter();
-  const t = useTranslations();
   const styles = useStyles();
 
   const [formData, setFormData] = useState({

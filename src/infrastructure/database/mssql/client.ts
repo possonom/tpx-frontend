@@ -1,9 +1,9 @@
-import { Connection, Request, TYPES } from "tedious";
+import { Connection } from "tedious";
 
 const mssqlConfig = {
   server: process.env.MSSQL_SERVER!,
   authentication: {
-    type: "default",
+    type: "default" as const,
     options: {
       userName: process.env.MSSQL_USER,
       password: process.env.MSSQL_PASSWORD,

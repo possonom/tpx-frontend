@@ -9,7 +9,7 @@ import {
   makeStyles,
   tokens,
 } from "@fluentui/react-components";
-import { ContactInfo } from "../../../domain";
+import { ContactInfo } from "@domain/index";
 
 const useStyles = makeStyles({
   formSection: {

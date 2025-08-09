@@ -22,7 +22,7 @@ import {
   PracticeOwner,
   Address,
   ContactInfo,
-} from "../../../domain";
+} from "@domain/index";
 import AddressForm from "./AddressForm";
 import ContactForm from "./ContactForm";
 

@@ -3,7 +3,7 @@ import {
   BrokerageTransaction,
   TransactionStatus,
   TransactionType,
-} from "@domain/domain/entities/Transaction";
+} from "@domain/entities/Transaction";
 import { z } from "zod";
 
 export const CreateTransactionSchema = z.object({

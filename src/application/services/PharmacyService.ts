@@ -3,7 +3,7 @@ import {
   Pharmacy,
   PharmacyStatus,
   PharmacyType,
-} from "@domain/domain/entities/Pharmacy";
+} from "@domain/entities/Pharmacy";
 import { z } from "zod";
 
 export const CreatePharmacySchema = z.object({

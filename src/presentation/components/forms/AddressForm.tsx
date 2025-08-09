@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { Field, Input, makeStyles, tokens } from "@fluentui/react-components";
-import { Address } from "../../../domain";
+import { Address } from "@domain/index";
 
 const useStyles = makeStyles({
   formSection: {

@@ -23,7 +23,7 @@ import {
   Address,
   ContactInfo,
   License,
-} from "../../../domain";
+} from "@domain/index";
 import AddressForm from "./AddressForm";
 import ContactForm from "./ContactForm";
 

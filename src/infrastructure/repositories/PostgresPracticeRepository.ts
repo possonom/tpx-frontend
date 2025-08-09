@@ -4,13 +4,13 @@ import {
   MedicalPractice,
   PracticeStatus,
   MedicalSpecialization,
-} from "@domain/domain/entities/Practice";
+} from "@domain/entities/Practice";
 import {
   PracticeRepository,
   PracticeFilters,
   CreatePracticeInput,
   UpdatePracticeInput,
-} from "@domain/application/services/PracticeService";
+} from "@application/services/PracticeService";
 
 export class PostgresPracticeRepository implements PracticeRepository {
   constructor(private pool: Pool) {}
@@ -355,17 +355,20 @@ export class PostgresPracticeRepository implements PracticeRepository {
             postalCode: row.location_postal_code,
             country: row.location_country,
           }) as {
-            street: string;
-            city: string;
-            state: string;
-            postalCode: string;
-            country: string;
-          },
+        street: string;
+        city: string;
+        state: string;
+        postalCode: string;
+        country: string;
+      },
       valuation:
-        row.valuation && typeof row.valuation === "object" && "methodology" in row.valuation
+        row.valuation &&
+        typeof row.valuation === "object" &&
+        "methodology" in row.valuation
           ? ({
               ...row.valuation,
-              methodology: (row.valuation as { methodology: string }).methodology as "INCOME" | "MARKET" | "ASSET",
+              methodology: (row.valuation as { methodology: string })
+                .methodology as "INCOME" | "MARKET" | "ASSET",
             } as {
               estimatedValue: number;
               valuationDate: Date;
@@ -383,13 +386,21 @@ export class PostgresPracticeRepository implements PracticeRepository {
                   row.valuation_date instanceof Date)
                   ? new Date(row.valuation_date)
                   : new Date(),
-              methodology: row.valuation_methodology as "INCOME" | "MARKET" | "ASSET",
+              methodology: row.valuation_methodology as
+                | "INCOME"
+                | "MARKET"
+                | "ASSET",
               annualRevenue: row.valuation_annual_revenue as number | undefined,
               ebitda: row.valuation_ebitda as number | undefined,
               patientBase: row.valuation_patient_base as number | undefined,
             },
       owner:
-        row.owner && typeof row.owner === "object" && "id" in row.owner && "name" in row.owner && "licenseNumber" in row.owner && "contactInfo" in row.owner
+        row.owner &&
+        typeof row.owner === "object" &&
+        "id" in row.owner &&
+        "name" in row.owner &&
+        "licenseNumber" in row.owner &&
+        "contactInfo" in row.owner
           ? (row.owner as {
               id: string;
               name: string;

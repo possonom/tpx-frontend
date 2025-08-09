@@ -1,13 +1,9 @@
 // src/app/api/auth/[...nextauth]/route.ts
 import NextAuth, { NextAuthOptions, Session } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { createOIDCProvider } from "@domain/infrastructure/auth/oidc/provider";
-import { AuthorizationService } from "@domain/infrastructure/auth/oidc/authorization";
-import {
-  User,
-  OIDCProfile,
-  Permission,
-} from "@domain/infrastructure/auth/oidc/types";
+import { createOIDCProvider } from "@infrastructure/auth/oidc/provider";
+import { AuthorizationService } from "@infrastructure/auth/oidc/authorization";
+import { User, OIDCProfile, Permission } from "@infrastructure/auth/oidc/types";
 
 interface ExtendedSession extends Session {
   user: {

@@ -30,7 +30,7 @@ import {
   MedicalPractice,
   PracticeStatus,
   MedicalSpecialization,
-} from "@domain/domain/entities/Practice";
+} from "@domain/entities/Practice";
 
 // Interface for raw API response with date strings
 interface RawMedicalPractice
@@ -241,7 +241,6 @@ function formatCurrency(amount: number): string {
 }
 
 export default function PracticesPage() {
-  const t = useTranslations("practices");
   const tCommon = useTranslations("common");
   const router = useRouter();
   const styles = useStyles();

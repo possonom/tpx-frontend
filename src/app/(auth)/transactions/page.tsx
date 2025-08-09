@@ -34,10 +34,11 @@ import {
   BrokerageTransaction,
   TransactionStatus,
   TransactionType,
-} from "@domain/domain/entities/Transaction";
+} from "@domain/entities/Transaction";
 
 // Interface for raw API response with date strings
-interface RawBrokerageTransaction extends Omit<BrokerageTransaction, 'createdAt' | 'updatedAt' | 'timeline'> {
+interface RawBrokerageTransaction
+  extends Omit<BrokerageTransaction, "createdAt" | "updatedAt" | "timeline"> {
   createdAt: string;
   updatedAt: string;
   timeline: {
@@ -154,35 +155,37 @@ async function fetchTransactions(filters: {
   }
 
   const data = await response.json();
-  
+
   // Convert date strings back to Date objects
-  const transactions = data.transactions.map((transaction: RawBrokerageTransaction) => ({
-    ...transaction,
-    createdAt: new Date(transaction.createdAt),
-    updatedAt: new Date(transaction.updatedAt),
-    timeline: {
-      ...transaction.timeline,
-      initiatedAt: new Date(transaction.timeline.initiatedAt),
-      dueDiligenceStarted: transaction.timeline.dueDiligenceStarted 
-        ? new Date(transaction.timeline.dueDiligenceStarted) 
-        : undefined,
-      dueDiligenceCompleted: transaction.timeline.dueDiligenceCompleted 
-        ? new Date(transaction.timeline.dueDiligenceCompleted) 
-        : undefined,
-      contractSigned: transaction.timeline.contractSigned 
-        ? new Date(transaction.timeline.contractSigned) 
-        : undefined,
-      closingScheduled: transaction.timeline.closingScheduled 
-        ? new Date(transaction.timeline.closingScheduled) 
-        : undefined,
-      completedAt: transaction.timeline.completedAt 
-        ? new Date(transaction.timeline.completedAt) 
-        : undefined,
-      cancelledAt: transaction.timeline.cancelledAt 
-        ? new Date(transaction.timeline.cancelledAt) 
-        : undefined,
-    },
-  })) as BrokerageTransaction[];
+  const transactions = data.transactions.map(
+    (transaction: RawBrokerageTransaction) => ({
+      ...transaction,
+      createdAt: new Date(transaction.createdAt),
+      updatedAt: new Date(transaction.updatedAt),
+      timeline: {
+        ...transaction.timeline,
+        initiatedAt: new Date(transaction.timeline.initiatedAt),
+        dueDiligenceStarted: transaction.timeline.dueDiligenceStarted
+          ? new Date(transaction.timeline.dueDiligenceStarted)
+          : undefined,
+        dueDiligenceCompleted: transaction.timeline.dueDiligenceCompleted
+          ? new Date(transaction.timeline.dueDiligenceCompleted)
+          : undefined,
+        contractSigned: transaction.timeline.contractSigned
+          ? new Date(transaction.timeline.contractSigned)
+          : undefined,
+        closingScheduled: transaction.timeline.closingScheduled
+          ? new Date(transaction.timeline.closingScheduled)
+          : undefined,
+        completedAt: transaction.timeline.completedAt
+          ? new Date(transaction.timeline.completedAt)
+          : undefined,
+        cancelledAt: transaction.timeline.cancelledAt
+          ? new Date(transaction.timeline.cancelledAt)
+          : undefined,
+      },
+    })
+  ) as BrokerageTransaction[];
 
   return {
     transactions,
@@ -190,7 +193,9 @@ async function fetchTransactions(filters: {
   };
 }
 
-function getStatusColor(status: TransactionStatus): "success" | "warning" | "important" | "subtle" | "danger" {
+function getStatusColor(
+  status: TransactionStatus
+): "success" | "warning" | "important" | "subtle" | "danger" {
   switch (status) {
     case "COMPLETED":
       return "success";
@@ -246,18 +251,16 @@ export default function TransactionsPage() {
   const t = useTranslations("transactions");
   const tCommon = useTranslations("common");
   const styles = useStyles();
-  
+
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState<TransactionStatus | "">("");
   const [typeFilter, setTypeFilter] = useState<TransactionType | "">("");
 
-  const {
-    data,
-    isLoading,
-    isError,
-    refetch,
-  } = useQuery({
-    queryKey: ["transactions", { search: searchTerm, status: statusFilter, type: typeFilter }],
+  const { data, isLoading, isError, refetch } = useQuery({
+    queryKey: [
+      "transactions",
+      { search: searchTerm, status: statusFilter, type: typeFilter },
+    ],
     queryFn: () =>
       fetchTransactions({
         search: searchTerm || undefined,
@@ -296,7 +299,16 @@ export default function TransactionsPage() {
     );
   }
 
-  const { transactions = [], summary = { total: 0, active: 0, completed: 0, totalValue: 0, totalCommission: 0 } } = data || {};
+  const {
+    transactions = [],
+    summary = {
+      total: 0,
+      active: 0,
+      completed: 0,
+      totalValue: 0,
+      totalCommission: 0,
+    },
+  } = data || {};
 
   return (
     <div className={styles.container}>
@@ -310,11 +322,7 @@ export default function TransactionsPage() {
             {t("subtitle")}
           </Text>
         </div>
-        <Button
-          appearance="primary"
-          icon={<Add24Regular />}
-          size="medium"
-        >
+        <Button appearance="primary" icon={<Add24Regular />} size="medium">
           Neue Transaktion
         </Button>
       </div>
@@ -369,7 +377,9 @@ export default function TransactionsPage() {
         <Dropdown
           placeholder={t("status")}
           value={statusFilter}
-          onOptionSelect={(_, data) => handleStatusFilter(data.optionValue as string)}
+          onOptionSelect={(_, data) =>
+            handleStatusFilter(data.optionValue as string)
+          }
         >
           <Option value="">{tCommon("all")}</Option>
           <Option value="INITIATED">Eingeleitet</Option>
@@ -383,7 +393,9 @@ export default function TransactionsPage() {
         <Dropdown
           placeholder={t("type")}
           value={typeFilter}
-          onOptionSelect={(_, data) => handleTypeFilter(data.optionValue as string)}
+          onOptionSelect={(_, data) =>
+            handleTypeFilter(data.optionValue as string)
+          }
         >
           <Option value="">{tCommon("all")}</Option>
           <Option value="PRACTICE_SALE">Praxisverkauf</Option>
@@ -430,9 +442,7 @@ export default function TransactionsPage() {
                     </Text>
                   </TableCell>
                   <TableCell>
-                    <Text size={300}>
-                      {transaction.seller.name}
-                    </Text>
+                    <Text size={300}>{transaction.seller.name}</Text>
                   </TableCell>
                   <TableCell>
                     <Text size={300} weight="semibold">
@@ -458,13 +468,13 @@ export default function TransactionsPage() {
                   </TableCell>
                   <TableCell>
                     <Text size={300}>
-                      {transaction.timeline.initiatedAt.toLocaleDateString("de-DE")}
+                      {transaction.timeline.initiatedAt.toLocaleDateString(
+                        "de-DE"
+                      )}
                     </Text>
                   </TableCell>
                   <TableCell>
-                    <Text size={300}>
-                      {transaction.assignedBroker}
-                    </Text>
+                    <Text size={300}>{transaction.assignedBroker}</Text>
                   </TableCell>
                   <TableCell>
                     <div className={styles.actionButtons}>

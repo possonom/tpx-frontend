@@ -3,7 +3,7 @@ import {
   MedicalPractice,
   PracticeStatus,
   MedicalSpecialization,
-} from "@domain/domain/entities/Practice";
+} from "@domain/entities/Practice";
 import { z } from "zod";
 
 export const CreatePracticeSchema = z.object({
